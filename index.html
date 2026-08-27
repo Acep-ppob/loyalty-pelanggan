@@ -63,22 +63,35 @@ function confirmIt(title,text,fn){
   };
 }
 function claim(id){
-let c=customers.find(x=>x.id===id);
-if(!c||c.vip)return;
-let r=R[c.level];
-if(!r||c.tx<r.t)return;
-confirmIt("Klaim hadiah",`Klaim ${r.n}? Progress akan di-reset ke 0 dan lanjut ke target berikutnya.`,()=>{
-c.history.push({d:new Date().toLocaleString("id-ID"),a:"Klaim Level "+(c.level+1),n:r.n});
-c.tx=0;
-c.level++;
-if(c.level>=4){
-c.level=4;
-c.vip=true;
-c.points=0;
-}
-save();
-render();
-})
+  let c=customers.find(x=>x.id===id);
+  if(!c||!c.vip)return;
+
+  let r=R[c.level];
+  if(!r||c.tx<r.t)return;
+
+  confirmIt(
+    "Klaim hadiah",
+    `Klaim ${r.n}? Progress akan di-reset ke 0 dan lanjut ke target berikutnya.`,
+    ()=>{
+      c.history.push({
+        d:new Date().toLocaleString(),
+        n:r.n
+      });
+
+      c.tx=0;
+      c.level++;
+
+      if(c.level>=4){
+        c.level=4;
+        c.vip=true;
+        c.points=0;
+      }
+
+      save();
+      render();
+    }
+  );
+        }
 }
 function redeem(id){let c=customers.find(x=>x.id===id);let opts=R.filter(r=>c.points>=r.t);if(!opts.length)return alert("Poin belum cukup untuk hadiah.");let s=opts.map((r,i)=>`${i+1}. ${r.n} — ${r.t} poin`).join("\\n");let x=prompt("Pilih nomor hadiah:\\n"+s);let i=Number(x)-1;if(!opts[i])return;let r=opts[i];confirmIt("Tukar poin",`Tukar ${r.t} poin untuk ${r.n}? Sisa poin: ${c.points-r.t}.`,()=>{c.points-=r.t;c.history.push({d:new Date().toLocaleString("id-ID"),a:"Tukar poin",n:r.n,cost:r.t});save()})}
 function removeC(id){if(confirm("Hapus pelanggan ini?")){customers=customers.filter(c=>c.id!==id);save()}}
