@@ -4,1506 +4,626 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#111827">
-
 <title>Loyalty Pelanggan</title>
-
 <style>
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
   margin:0;
+  font-family:Arial,Helvetica,sans-serif;
   background:#eef2f7;
   color:#111827;
-  font-family:Arial,Helvetica,sans-serif;
 }
-
 header{
   background:#111827;
   color:white;
-  padding:28px 20px 26px;
+  padding:24px 20px 28px;
 }
-
-header h1{
-  margin:0;
-  font-size:30px;
-}
-
-header p{
-  margin:8px 0 0;
-  color:#cbd5e1;
-  font-size:17px;
-}
-
-main{
-  max-width:720px;
-  margin:auto;
-  padding:14px;
-}
-
+header h1{margin:0;font-size:28px}
+header p{margin:6px 0 0;color:#cbd5e1;font-size:16px}
+main{max-width:720px;margin:auto;padding:16px}
 .card{
   background:white;
   border-radius:22px;
   padding:20px;
   margin-bottom:16px;
-  box-shadow:0 4px 18px rgba(15,23,42,.06);
+  box-shadow:0 5px 20px rgba(15,23,42,.06);
 }
-
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:10px;
 }
-
 .stat{
   background:#f8fafc;
   border-radius:18px;
-  padding:20px 8px;
+  padding:18px 8px;
   text-align:center;
 }
-
-.stat b{
-  display:block;
-  font-size:32px;
-  margin-bottom:8px;
-}
-
-.stat span{
-  color:#64748b;
-  font-size:15px;
-}
-
+.stat b{display:block;font-size:30px}
+.stat span{display:block;color:#64748b;margin-top:5px}
 .tabs{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:10px;
   margin-bottom:16px;
 }
-
-.tabs button{
+button{
   border:0;
-  border-radius:18px;
-  padding:18px 8px;
-  background:#dfe7f1;
+  border-radius:16px;
+  padding:14px 16px;
   font-size:17px;
-  font-weight:bold;
+  font-weight:700;
   cursor:pointer;
+  background:#e2e8f0;
+  color:#111827;
 }
-
-.tabs button.on{
-  background:#111827;
-  color:white;
-}
-
-input,
-select{
+button.primary{background:#111827;color:white}
+button.danger{background:#fee2e2;color:#991b1b}
+button:active{transform:scale(.98)}
+input,select{
   width:100%;
-  border:1px solid #d7dee8;
-  border-radius:15px;
-  padding:15px;
+  border:1px solid #d1d5db;
+  border-radius:14px;
+  padding:14px;
   font-size:17px;
   margin-top:10px;
   outline:none;
 }
-
-input:focus{
-  border-color:#64748b;
-}
-
-button{
-  border:0;
-  border-radius:13px;
-  padding:13px 17px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.primary{
-  background:#111827;
-  color:white;
-  margin-top:12px;
-}
-
-.secondary{
-  background:#e2e8f0;
-  color:#111827;
-}
-
-.danger{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
+input:focus,select:focus{border-color:#64748b}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1}
+.hidden{display:none!important}
 .customer{
   border:1px solid #e2e8f0;
   border-radius:18px;
-  padding:17px;
+  padding:16px;
   margin-top:12px;
 }
-
-.customer h3{
-  margin:0 0 7px;
-  font-size:20px;
-}
-
-.customer p{
-  margin:7px 0;
-  color:#475569;
-}
-
+.customer h3{margin:0 0 8px}
 .badge{
   display:inline-block;
-  background:#fef3c7;
-  color:#92400e;
-  border-radius:20px;
+  background:#e0f2fe;
+  color:#075985;
+  border-radius:999px;
   padding:5px 9px;
-  font-size:13px;
-  font-weight:bold;
+  font-size:12px;
+  font-weight:700;
 }
-
+.vip{background:#fef3c7;color:#92400e}
+.muted{color:#64748b;font-size:14px}
 .progress{
   height:10px;
   background:#e5e7eb;
-  border-radius:20px;
+  border-radius:99px;
   overflow:hidden;
-  margin:12px 0;
+  margin:10px 0;
 }
-
-.progress div{
-  height:100%;
-  background:#111827;
-  border-radius:20px;
-}
-
-.actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:12px;
-}
-
-.actions button{
-  flex:1;
-  min-width:110px;
-}
-
+.progress div{height:100%;background:#111827;width:0}
 .reward{
-  background:#f8fafc;
-  border-radius:16px;
-  padding:15px;
-  margin-top:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:14px 0;
+  border-bottom:1px solid #e5e7eb;
 }
-
-.reward b{
-  font-size:18px;
-}
-
+.reward:last-child{border-bottom:0}
+.smallbtn{padding:9px 12px;font-size:14px}
 .history{
-  border-top:1px solid #e5e7eb;
-  margin-top:12px;
-  padding-top:12px;
+  background:#f8fafc;
+  padding:10px;
+  border-radius:12px;
+  margin-top:8px;
   font-size:14px;
-  color:#64748b;
 }
-
-.hidden{
-  display:none !important;
-}
-
-.empty{
-  text-align:center;
-  color:#64748b;
-  padding:25px 10px;
-}
-
+.empty{text-align:center;color:#64748b;padding:15px}
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.55);
+  background:rgba(0,0,0,.45);
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:20px;
-  z-index:999;
+  padding:18px;
+  z-index:50;
 }
-
-.modal-box{
+.modalbox{
   background:white;
   width:100%;
-  max-width:500px;
+  max-width:430px;
   border-radius:22px;
   padding:22px;
 }
-
-.modal-box h3{
-  margin-top:0;
-}
-
-.modal-actions{
-  display:flex;
-  gap:10px;
-  margin-top:18px;
-}
-
-.modal-actions button{
-  flex:1;
-}
-
-small{
-  color:#64748b;
-}
-
-footer{
-  text-align:center;
-  padding:25px;
-  color:#94a3b8;
-  font-size:13px;
+.modalbox h2{margin-top:0}
+@media(max-width:520px){
+  main{padding:12px}
+  .stats{gap:7px}
+  .stat{padding:15px 5px}
+  .stat b{font-size:25px}
+  header h1{font-size:25px}
 }
 </style>
 </head>
 
 <body>
-
 <header>
   <h1>👥 Loyalty Pelanggan</h1>
   <p>Reward bertingkat • VIP permanen</p>
 </header>
 
 <main>
-
-  <!-- STATISTIK -->
   <section class="card stats">
-
-    <div class="stat">
-      <b id="total">0</b>
-      <span>Pelanggan</span>
-    </div>
-
-    <div class="stat">
-      <b id="vip">0</b>
-      <span>VIP</span>
-    </div>
-
-    <div class="stat">
-      <b id="ready">0</b>
-      <span>Siap klaim</span>
-    </div>
-
+    <div class="stat"><b id="totalCustomers">0</b><span>Pelanggan</span></div>
+    <div class="stat"><b id="totalVip">0</b><span>VIP</span></div>
+    <div class="stat"><b id="readyCount">0</b><span>Siap klaim</span></div>
   </section>
 
-
-  <!-- TAB -->
   <div class="tabs">
-
-    <button id="t1"
-            class="on"
-            onclick="tab('p')">
-      👥 Pelanggan
-    </button>
-
-    <button id="t2"
-            onclick="tab('r')">
-      🎁 Reward
-    </button>
-
-    <button id="t3"
-            onclick="tab('b')">
-      💾 Data
-    </button>
-
+    <button id="tabCustomers" class="primary" onclick="showTab('customers')">👥 Pelanggan</button>
+    <button id="tabRewards" onclick="showTab('rewards')">🎁 Reward</button>
+    <button id="tabData" onclick="showTab('data')">💾 Data</button>
   </div>
 
-
-  <!-- ========================= -->
-  <!-- HALAMAN PELANGGAN -->
-  <!-- ========================= -->
-
-  <section id="p">
-
+  <section id="customersTab">
     <div class="card">
-
       <h2>Tambah pelanggan</h2>
-
-      <input
-        id="nm"
-        type="text"
-        placeholder="Nama pelanggan"
-      >
-
-      <input
-        id="hp"
-        type="tel"
-        placeholder="Nomor HP (opsional)"
-      >
-
-      <button
-        class="primary"
-        onclick="add()">
-        + Tambah
-      </button>
-
+      <input id="nameInput" placeholder="Nama pelanggan" autocomplete="off">
+      <input id="phoneInput" placeholder="Nomor HP (opsional)" inputmode="tel">
+      <button class="primary" style="margin-top:10px" onclick="addCustomer()">+ Tambah</button>
     </div>
-
 
     <div class="card">
-
-      <input
-        id="q"
-        type="search"
-        placeholder="🔎 Cari pelanggan"
-      >
-
+      <input id="searchInput" placeholder="🔎 Cari pelanggan" oninput="renderCustomers()" autocomplete="off">
+      <div id="customerList"></div>
     </div>
-
-
-    <div id="customerList"></div>
-
   </section>
 
-
-  <!-- ========================= -->
-  <!-- HALAMAN REWARD -->
-  <!-- ========================= -->
-
-  <section id="r" class="hidden">
-
+  <section id="rewardsTab" class="hidden">
     <div class="card">
-
-      <h2>🎁 Reward</h2>
-
-      <div class="reward">
-        🥇 <b>35x</b> → Minyak 1 Liter
-      </div>
-
-      <div class="reward">
-        🥈 <b>55x</b> → Minyak 2 Liter
-      </div>
-
-      <div class="reward">
-        🥉 <b>75x</b> → Cashback Rp50.000
-      </div>
-
-      <div class="reward">
-        🏆 <b>100x</b> → Beras 5 Kg + Sembako
-      </div>
-
-      <p>
-        <small>
-          Setiap hadiah yang diklaim akan mereset
-          transaksi ke 0 dan lanjut ke target berikutnya.
-        </small>
-      </p>
-
-      <div class="reward">
-        👑 <b>VIP PERMANEN</b><br>
-        Setelah menyelesaikan seluruh level.
-      </div>
-
+      <h2>🎁 Daftar Reward</h2>
+      <div id="rewardList"></div>
+      <p class="muted">Untuk pelanggan biasa, reward diklaim berurutan: 35x → 55x → 75x → 100x.</p>
+      <p class="muted">Setelah 100x berhasil diklaim, pelanggan menjadi VIP permanen. Poin VIP bisa dipakai untuk reward mana pun dan hanya poin yang dipakai yang berkurang.</p>
     </div>
-
   </section>
 
-
-  <!-- ========================= -->
-  <!-- HALAMAN DATA -->
-  <!-- ========================= -->
-
-  <section id="b" class="hidden">
-
+  <section id="dataTab" class="hidden">
     <div class="card">
-
-      <h2>💾 Data Pelanggan</h2>
-
-      <p>
-        Backup data supaya data pelanggan aman.
-      </p>
-
-      <button
-        class="primary"
-        onclick="backup()">
-        💾 Backup Data
-      </button>
-
-      <br><br>
-
-      <label>
-        <b>Restore Data</b>
-      </label>
-
-      <input
-        id="restoreFile"
-        type="file"
-        accept=".json"
-        onchange="restore(event)"
-      >
-
-      <br><br>
-
-      <button
-        class="danger"
-        onclick="wipe()">
-        🗑 Hapus Semua Data
-      </button>
-
+      <h2>💾 Data</h2>
+      <div class="row">
+        <button onclick="backupData()">Backup</button>
+        <button onclick="document.getElementById('restoreFile').click()">Restore</button>
+        <input id="restoreFile" type="file" accept=".json,application/json" class="hidden" onchange="restoreData(event)">
+      </div>
+      <button class="danger" style="width:100%;margin-top:10px" onclick="wipeAll()">Hapus semua data</button>
     </div>
-
   </section>
-
 </main>
 
-
-<footer>
-  Loyalty Pelanggan
-</footer>
-
-
-<!-- ========================= -->
-<!-- MODAL -->
-<!-- ========================= -->
-
-<div
-  id="modal"
-  class="modal hidden">
-
-  <div class="modal-box">
-
-    <h3 id="modalTitle">
-      Konfirmasi
-    </h3>
-
-    <p id="modalText">
-      Apakah Anda yakin?
-    </p>
-
-    <div class="modal-actions">
-
-      <button
-        class="secondary"
-        onclick="closeModal()">
-        Batal
-      </button>
-
-      <button
-        class="primary"
-        id="modalOK">
-        OK
-      </button>
-
+<div id="modal" class="modal hidden">
+  <div class="modalbox">
+    <h2 id="modalTitle">Konfirmasi</h2>
+    <p id="modalText"></p>
+    <div class="row">
+      <button onclick="closeModal()">Batal</button>
+      <button id="modalOk" class="primary">OK</button>
     </div>
-
   </div>
-
 </div>
 
-
 <script>
+"use strict";
 
-/* =========================================
-   DATA REWARD
-========================================= */
+/*
+  SISTEM REWARD
+  Level 0 = 35 transaksi
+  Level 1 = 55 transaksi
+  Level 2 = 75 transaksi
+  Level 3 = 100 transaksi
+  Level 4 = VIP permanen
+
+  Pelanggan biasa:
+  - Klik +1 transaksi.
+  - Jika target tercapai, tombol KLAIM muncul.
+  - Klaim 35x -> transaksi kembali 0 -> target 55x.
+  - Klaim 55x -> transaksi kembali 0 -> target 75x.
+  - Klaim 75x -> transaksi kembali 0 -> target 100x.
+  - Klaim 100x -> transaksi kembali 0 -> VIP permanen.
+
+  VIP:
+  - tx adalah poin VIP.
+  - Bisa klaim reward mana pun jika poin cukup.
+  - Yang berkurang hanya poin reward yang dipakai.
+*/
+
+const STORAGE_KEY = "loyalty_pelanggan_v3";
 
 const REWARDS = [
-
-  {
-    target:35,
-    name:"Minyak 1 Liter"
-  },
-
-  {
-    target:55,
-    name:"Minyak 2 Liter"
-  },
-
-  {
-    target:75,
-    name:"Cashback Rp50.000"
-  },
-
-  {
-    target:100,
-    name:"Beras 5 Kg + Sembako"
-  }
-
+  { target:35,  name:"Minyak 1 Liter", emoji:"🥇" },
+  { target:55,  name:"Minyak 2 Liter", emoji:"🥈" },
+  { target:75,  name:"Cashback Rp50.000", emoji:"🥉" },
+  { target:100, name:"Beras 5 Kg + Sembako", emoji:"🏆" }
 ];
 
+let customers = loadData();
 
-/* =========================================
-   LOAD DATA
-========================================= */
-
-let customers = [];
-
-try{
-
-  customers =
-    JSON.parse(
-      localStorage.getItem("lp_v2") || "[]"
-    );
-
-  if(!Array.isArray(customers)){
-    customers=[];
-  }
-
-}catch(e){
-
-  customers=[];
-
+function $(id){
+  return document.getElementById(id);
 }
 
+function loadData(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return [];
+    const data = JSON.parse(raw);
+    if(!Array.isArray(data)) return [];
+    return data.map(normalizeCustomer);
+  }catch(e){
+    console.error(e);
+    return [];
+  }
+}
 
-/* =========================================
-   SAVE DATA
-========================================= */
+function normalizeCustomer(c){
+  return {
+    id: String(c.id || Date.now() + Math.random()),
+    name: String(c.name || "Tanpa Nama"),
+    phone: String(c.phone || ""),
+    tx: Number.isFinite(Number(c.tx)) ? Math.max(0, Number(c.tx)) : 0,
+    level: Number.isFinite(Number(c.level)) ? Math.min(4, Math.max(0, Number(c.level))) : 0,
+    vip: Boolean(c.vip) || Number(c.level) >= 4,
+    history: Array.isArray(c.history) ? c.history : []
+  };
+}
 
 function save(){
-
-  localStorage.setItem(
-    "lp_v2",
-    JSON.stringify(customers)
-  );
-
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(customers));
+    return true;
+  }catch(e){
+    alert("Data gagal disimpan di browser.");
+    console.error(e);
+    return false;
+  }
 }
 
-
-/* =========================================
-   ESCAPE HTML
-========================================= */
-
-function esc(value){
-
+function escapeHTML(value){
   return String(value ?? "")
-    .replace(/[&<>"']/g,function(x){
-
-      return {
-
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#39;"
-
-      }[x];
-
-    });
-
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
-
-/* =========================================
-   TAMBAH PELANGGAN
-========================================= */
-
-function add(){
-
-  const name =
-    document
-      .getElementById("nm")
-      .value
-      .trim();
-
-  const hp =
-    document
-      .getElementById("hp")
-      .value
-      .trim();
-
+function addCustomer(){
+  const name = $("nameInput").value.trim();
+  const phone = $("phoneInput").value.trim();
 
   if(!name){
-
-    alert(
-      "Nama pelanggan belum diisi."
-    );
-
+    alert("Nama pelanggan wajib diisi.");
+    $("nameInput").focus();
     return;
-
   }
 
-
-  const customer={
-
-    id:
-      Date.now().toString()
-      + Math.random()
-        .toString(36)
-        .slice(2),
-
-    name:name,
-
-    hp:hp,
-
+  customers.push({
+    id: String(Date.now()) + "-" + Math.random().toString(36).slice(2),
+    name,
+    phone,
     tx:0,
-
     level:0,
-
     vip:false,
-
     history:[]
+  });
 
-  };
-
-
-  customers.push(customer);
-
-  save();
-
-
-  document
-    .getElementById("nm")
-    .value="";
-
-  document
-    .getElementById("hp")
-    .value="";
-
-
-  render();
-
-
-  alert(
-    "Pelanggan berhasil ditambahkan."
-  );
-
+  if(save()){
+    $("nameInput").value = "";
+    $("phoneInput").value = "";
+    render();
+    $("nameInput").focus();
+  }
 }
 
-
-/* =========================================
-   TAMBAH 1 TRANSAKSI
-========================================= */
-
-function tx(id){
-
-  const c =
-    customers.find(
-      x => x.id === id
-    );
-
-
-  if(!c){
-    return;
-  }
-
-
-  if(c.vip){
-
-    alert(
-      "Pelanggan ini sudah VIP permanen."
-    );
-
-    return;
-
-  }
-
-
-  c.tx++;
-
-
-  save();
-
-  render();
-
+function findCustomer(id){
+  return customers.find(c => String(c.id) === String(id));
 }
 
+function addTransaction(id){
+  const c = findCustomer(id);
+  if(!c) return;
 
-/* =========================================
-   KLAIM HADIAH
-========================================= */
+  c.tx += 1;
+  save();
+  render();
+}
 
-function claim(id){
+function currentReward(c){
+  if(c.vip) return null;
+  return REWARDS[Math.min(c.level, REWARDS.length - 1)];
+}
 
-  const c =
-    customers.find(
-      x => x.id === id
-    );
-
-
-  if(!c){
-    return;
-  }
-
-
-  /* VIP tidak perlu klaim lagi */
+function claimNext(id){
+  const c = findCustomer(id);
+  if(!c) return;
 
   if(c.vip){
-
-    alert(
-      "Pelanggan sudah VIP permanen."
-    );
-
+    alert("Pelanggan ini sudah VIP. Pilih reward VIP yang ingin ditukar.");
     return;
-
   }
 
-
-  const reward =
-    REWARDS[c.level];
-
-
-  if(!reward){
-
-    return;
-
-  }
-
-
-  /* Belum mencapai target */
+  const reward = currentReward(c);
+  if(!reward) return;
 
   if(c.tx < reward.target){
-
-    alert(
-
-      "Belum bisa klaim.\n\n"
-      + "Progress: "
-      + c.tx
-      + "/"
-      + reward.target
-      + " transaksi."
-
-    );
-
+    alert("Belum mencapai target " + reward.target + "x.");
     return;
-
   }
 
-
-  /* Konfirmasi */
-
-  openModal(
-
-    "Klaim Hadiah",
-
-    "Klaim "
-    + reward.name
-    + "?\n\n"
-    + "Target "
-    + reward.target
-    + "x sudah tercapai.\n"
-    + "Setelah klaim transaksi akan menjadi 0.",
-
+  openConfirm(
+    "Klaim hadiah",
+    "Klaim " + reward.name + " dengan " + reward.target + "x transaksi?",
     function(){
-
-      /* =========================
-         SIMPAN HISTORY
-      ========================= */
-
-      c.history.push({
-
-        date:
-          new Date()
-            .toLocaleString("id-ID"),
-
-        reward:
-          reward.name,
-
-        target:
-          reward.target
-
+      c.history.unshift({
+        date:new Date().toLocaleString("id-ID"),
+        name:reward.name,
+        points:reward.target
       });
 
-
-      /* =========================
-         RESET TRANSAKSI
-      ========================= */
-
-      c.tx=0;
-
-
-      /* =========================
-         LANJUT LEVEL
-      ========================= */
-
-      c.level++;
-
-
-      /* =========================
-         SELESAI SEMUA LEVEL
-      ========================= */
+      /*
+        INI BAGIAN PENTING:
+        Setelah klaim, tx langsung 0.
+        Lalu level naik ke target berikutnya.
+      */
+      c.tx = 0;
+      c.level += 1;
 
       if(c.level >= REWARDS.length){
-
-        c.level =
-          REWARDS.length - 1;
-
-        c.vip=true;
-
+        c.level = 4;
+        c.vip = true;
+        c.tx = 0;
       }
-
 
       save();
-
+      closeModal();
       render();
-
-
-      if(c.vip){
-
-        alert(
-          "🎉 Selamat!\n\n"
-          + c.name
-          + " sekarang menjadi VIP PERMANEN!"
-        );
-
-      }else{
-
-        const next =
-          REWARDS[c.level];
-
-        alert(
-
-          "🎁 Hadiah berhasil diklaim!\n\n"
-          + "Progress direset ke 0.\n"
-          + "Target berikutnya: "
-          + next.target
-          + "x\n\n"
-          + "Hadiah: "
-          + next.name
-
-        );
-
-      }
-
     }
-
   );
-
 }
 
+function claimVip(id, target){
+  const c = findCustomer(id);
+  if(!c || !c.vip) return;
 
-/* =========================================
-   HAPUS PELANGGAN
-========================================= */
-
-function removeC(id){
-
-  const c =
-    customers.find(
-      x => x.id === id
-    );
-
-
-  if(!c){
+  if(c.tx < target){
+    alert("Poin VIP tidak cukup. Butuh " + target + " poin.");
     return;
   }
 
+  const reward = REWARDS.find(r => r.target === target);
+  if(!reward) return;
 
-  openModal(
-
-    "Hapus Pelanggan",
-
-    "Yakin ingin menghapus "
-    + c.name
-    + "?",
-
+  openConfirm(
+    "Tukar reward VIP",
+    "Tukar " + target + " poin untuk " + reward.name + "? Sisa poin tetap disimpan.",
     function(){
+      c.tx -= target;
 
-      customers =
-        customers.filter(
-          x => x.id !== id
-        );
+      c.history.unshift({
+        date:new Date().toLocaleString("id-ID"),
+        name:reward.name + " (VIP)",
+        points:target
+      });
 
       save();
-
+      closeModal();
       render();
-
     }
-
   );
-
 }
 
+function removeCustomer(id){
+  const c = findCustomer(id);
+  if(!c) return;
 
-/* =========================================
-   RENDER PELANGGAN
-========================================= */
+  openConfirm(
+    "Hapus pelanggan",
+    "Yakin ingin menghapus " + c.name + "? Data pelanggan ini akan hilang.",
+    function(){
+      customers = customers.filter(x => String(x.id) !== String(id));
+      save();
+      closeModal();
+      render();
+    }
+  );
+}
 
-function render(){
+function renderCustomers(){
+  const q = $("searchInput").value.trim().toLowerCase();
+  const list = $("customerList");
 
-  const container =
-    document.getElementById(
-      "customerList"
-    );
+  const filtered = customers.filter(c =>
+    c.name.toLowerCase().includes(q) ||
+    c.phone.toLowerCase().includes(q)
+  );
 
-
-  const keyword =
-    document
-      .getElementById("q")
-      .value
-      .toLowerCase()
-      .trim();
-
-
-  const list =
-    customers.filter(
-      c =>
-        c.name
-          .toLowerCase()
-          .includes(keyword)
-        ||
-        (c.hp || "")
-          .includes(keyword)
-    );
-
-
-  container.innerHTML="";
-
-
-  /* Tidak ada pelanggan */
-
-  if(list.length===0){
-
-    container.innerHTML=`
-
-      <div class="card empty">
-
-        ${
-          customers.length===0
-          ? "Belum ada pelanggan."
-          : "Pelanggan tidak ditemukan."
-        }
-
-      </div>
-
-    `;
-
+  if(filtered.length === 0){
+    list.innerHTML = '<div class="empty">Belum ada pelanggan.</div>';
+    return;
   }
 
-
-  list.forEach(c => {
-
-    const card =
-      document.createElement("div");
-
-    card.className="card customer";
-
-
-    /* =========================
-       VIP
-    ========================= */
+  list.innerHTML = filtered.map(c => {
+    const reward = currentReward(c);
+    let progress = 0;
+    let targetText = "";
 
     if(c.vip){
+      progress = 0;
+      targetText = "VIP permanen • " + c.tx + " poin tersedia";
+    }else{
+      progress = Math.min(100, Math.round((c.tx / reward.target) * 100));
+      targetText = c.tx + " / " + reward.target + " transaksi • Target: " + reward.name;
+    }
 
-      card.innerHTML=`
+    const historyHTML = c.history.length
+      ? c.history.slice(0,5).map(h =>
+          '<div class="history">🎁 ' + escapeHTML(h.name) +
+          '<br><span class="muted">' + escapeHTML(h.date) +
+          ' • ' + escapeHTML(h.points) + ' poin</span></div>'
+        ).join("")
+      : '<div class="muted">Belum ada riwayat klaim.</div>';
 
-        <h3>
-          ${esc(c.name)}
-          <span class="badge">
-            👑 VIP
+    let actionHTML = "";
+
+    if(c.vip){
+      actionHTML = REWARDS.map(r => {
+        const disabled = c.tx < r.target ? "disabled" : "";
+        return '<button class="smallbtn" ' + disabled +
+          ' onclick="claimVip(\'' + escapeHTML(c.id) + '\',' + r.target + ')">' +
+          r.target + 'x</button>';
+      }).join(" ");
+    }else{
+      const ready = c.tx >= reward.target;
+      actionHTML =
+        '<button class="primary" ' + (ready ? "" : "disabled") +
+        ' onclick="claimNext(\'' + escapeHTML(c.id) + '\')">' +
+        (ready ? "🎁 KLAIM " + reward.target + "x" : "🔒 Belum siap") +
+        '</button>';
+    }
+
+    return `
+      <div class="customer">
+        <h3>${escapeHTML(c.name)}
+          <span class="badge ${c.vip ? "vip" : ""}">
+            ${c.vip ? "VIP" : "Level " + (c.level + 1)}
           </span>
         </h3>
-
-        ${
-          c.hp
-          ? `<p>📱 ${esc(c.hp)}</p>`
-          : ""
-        }
-
-        <p>
-          🎉 <b>VIP PERMANEN</b>
-        </p>
-
-        <p>
-          Progress transaksi:
-          <b>${c.tx}</b>
-        </p>
-
-        ${
-          c.history.length
-          ? `
-            <div class="history">
-
-              <b>Riwayat Hadiah</b>
-
-              ${
-
-                c.history
-                  .slice()
-                  .reverse()
-                  .map(h => `
-
-                    <div>
-                      🎁 ${esc(h.reward)}
-                      <br>
-                      <small>
-                        ${esc(h.date)}
-                      </small>
-                    </div>
-
-                  `)
-                  .join("")
-
-              }
-
-            </div>
-          `
-          : ""
-        }
-
-        <div class="actions">
-
-          <button
-            class="danger"
-            onclick="removeC('${c.id}')">
-
-            🗑 Hapus
-
-          </button>
-
+        ${c.phone ? '<div class="muted">📱 ' + escapeHTML(c.phone) + '</div>' : ""}
+        <p>${escapeHTML(targetText)}</p>
+        ${!c.vip ? '<div class="progress"><div style="width:' + progress + '%"></div></div>' : ""}
+        <div class="row">
+          <button class="primary" onclick="addTransaction('${escapeHTML(c.id)}')">+1 Transaksi</button>
+          ${actionHTML}
         </div>
-
-      `;
-
-    }
-
-
-    /* =========================
-       PELANGGAN BIASA
-    ========================= */
-
-    else{
-
-      const reward =
-        REWARDS[
-          Math.min(
-            c.level,
-            REWARDS.length-1
-          )
-        ];
-
-
-      const percent =
-        Math.min(
-          100,
-          Math.round(
-            (c.tx / reward.target)
-            * 100
-          )
-        );
-
-
-      const ready =
-        c.tx >= reward.target;
-
-
-      card.innerHTML=`
-
-        <h3>
-          ${esc(c.name)}
-        </h3>
-
-        ${
-          c.hp
-          ? `<p>📱 ${esc(c.hp)}</p>`
-          : ""
-        }
-
-        <p>
-          🎁 Target:
-          <b>${reward.target}x</b>
-        </p>
-
-        <p>
-          Hadiah:
-          <b>${esc(reward.name)}</b>
-        </p>
-
-        <p>
-          Progress:
-          <b>${c.tx}/${reward.target}</b>
-        </p>
-
-        <div class="progress">
-
-          <div
-            style="width:${percent}%">
-          </div>
-
-        </div>
-
-
-        <div class="actions">
-
-          <button
-            class="primary"
-            onclick="tx('${c.id}')">
-
-            +1 Transaksi
-
-          </button>
-
-
-          <button
-            class="${ready ? "primary" : "secondary"}"
-            onclick="claim('${c.id}')">
-
-            🎁 KLAIM
-
-          </button>
-
-
-          <button
-            class="danger"
-            onclick="removeC('${c.id}')">
-
-            🗑 Hapus
-
-          </button>
-
-        </div>
-
-
-        ${
-          c.history.length
-          ? `
-            <div class="history">
-
-              <b>Riwayat Hadiah</b>
-
-              ${
-
-                c.history
-                  .slice()
-                  .reverse()
-                  .map(h => `
-
-                    <div>
-                      🎁 ${esc(h.reward)}
-                      <br>
-                      <small>
-                        ${esc(h.date)}
-                      </small>
-                    </div>
-
-                  `)
-                  .join("")
-
-              }
-
-            </div>
-          `
-          : ""
-        }
-
-      `;
-
-    }
-
-
-    container.appendChild(card);
-
-  });
-
-
-  updateStats();
-
+        <div style="margin-top:10px">${historyHTML}</div>
+        <button class="danger smallbtn" style="margin-top:10px" onclick="removeCustomer('${escapeHTML(c.id)}')">Hapus</button>
+      </div>
+    `;
+  }).join("");
 }
 
-
-/* =========================================
-   STATISTIK
-========================================= */
-
-function updateStats(){
-
-  document
-    .getElementById("total")
-    .textContent =
-      customers.length;
-
-
-  document
-    .getElementById("vip")
-    .textContent =
-      customers.filter(
-        c => c.vip
-      ).length;
-
-
-  document
-    .getElementById("ready")
-    .textContent =
-      customers.filter(c => {
-
-        if(c.vip){
-          return false;
-        }
-
-        const r =
-          REWARDS[c.level];
-
-        return r &&
-          c.tx >= r.target;
-
-      }).length;
-
+function renderRewards(){
+  $("rewardList").innerHTML = REWARDS.map(r => `
+    <div class="reward">
+      <div>
+        <b>${r.emoji} ${r.target}x</b><br>
+        <span class="muted">${escapeHTML(r.name)}</span>
+      </div>
+    </div>
+  `).join("");
 }
 
+function renderStats(){
+  const vip = customers.filter(c => c.vip).length;
 
-/* =========================================
-   SEARCH
-========================================= */
+  const ready = customers.filter(c => {
+    if(c.vip) return c.tx >= 35;
+    const r = currentReward(c);
+    return r && c.tx >= r.target;
+  }).length;
 
-document
-  .getElementById("q")
-  .addEventListener(
-    "input",
-    render
-  );
-
-
-/* =========================================
-   TAB
-========================================= */
-
-function tab(page){
-
-  const pages=[
-    "p",
-    "r",
-    "b"
-  ];
-
-
-  pages.forEach(x => {
-
-    document
-      .getElementById(x)
-      .classList
-      .add("hidden");
-
-  });
-
-
-  document
-    .getElementById(page)
-    .classList
-    .remove("hidden");
-
-
-  document
-    .getElementById("t1")
-    .classList
-    .remove("on");
-
-  document
-    .getElementById("t2")
-    .classList
-    .remove("on");
-
-  document
-    .getElementById("t3")
-    .classList
-    .remove("on");
-
-
-  if(page==="p"){
-
-    document
-      .getElementById("t1")
-      .classList
-      .add("on");
-
-  }
-
-  if(page==="r"){
-
-    document
-      .getElementById("t2")
-      .classList
-      .add("on");
-
-  }
-
-  if(page==="b"){
-
-    document
-      .getElementById("t3")
-      .classList
-      .add("on");
-
-  }
-
+  $("totalCustomers").textContent = customers.length;
+  $("totalVip").textContent = vip;
+  $("readyCount").textContent = ready;
 }
 
-
-/* =========================================
-   MODAL
-========================================= */
-
-function openModal(
-  title,
-  text,
-  callback
-){
-
-  document
-    .getElementById("modalTitle")
-    .textContent=title;
-
-
-  document
-    .getElementById("modalText")
-    .textContent=text;
-
-
-  document
-    .getElementById("modal")
-    .classList
-    .remove("hidden");
-
-
-  document
-    .getElementById("modalOK")
-    .onclick=function(){
-
-      closeModal();
-
-      callback();
-
-    };
-
+function render(){
+  renderStats();
+  renderCustomers();
+  renderRewards();
 }
 
+function showTab(tab){
+  $("customersTab").classList.toggle("hidden", tab !== "customers");
+  $("rewardsTab").classList.toggle("hidden", tab !== "rewards");
+  $("dataTab").classList.toggle("hidden", tab !== "data");
+
+  $("tabCustomers").classList.toggle("primary", tab === "customers");
+  $("tabRewards").classList.toggle("primary", tab === "rewards");
+  $("tabData").classList.toggle("primary", tab === "data");
+}
+
+function openConfirm(title,text,fn){
+  $("modalTitle").textContent = title;
+  $("modalText").textContent = text;
+  $("modal").classList.remove("hidden");
+  $("modalOk").onclick = fn;
+}
 
 function closeModal(){
-
-  document
-    .getElementById("modal")
-    .classList
-    .add("hidden");
-
+  $("modal").classList.add("hidden");
+  $("modalOk").onclick = null;
 }
 
-
-/* =========================================
-   BACKUP
-========================================= */
-
-function backup(){
-
-  const data =
-    JSON.stringify(
-      customers,
-      null,
-      2
-    );
-
-
-  const blob =
-    new Blob(
-      [data],
-      {
-        type:"application/json"
-      }
-    );
-
-
-  const url =
-    URL.createObjectURL(blob);
-
-
-  const a =
-    document.createElement("a");
-
-
-  a.href=url;
-
-  a.download =
-    "loyalty-pelanggan-backup.json";
-
-
+function backupData(){
+  const blob = new Blob([JSON.stringify(customers,null,2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "loyalty-pelanggan-backup.json";
+  document.body.appendChild(a);
   a.click();
-
-
+  a.remove();
   URL.revokeObjectURL(url);
-
 }
 
+function restoreData(event){
+  const file = event.target.files[0];
+  if(!file) return;
 
-/* =========================================
-   RESTORE
-========================================= */
+  const reader = new FileReader();
 
-function restore(event){
-
-  const file =
-    event.target.files[0];
-
-
-  if(!file){
-    return;
-  }
-
-
-  const reader =
-    new FileReader();
-
-
-  reader.onload=function(e){
-
+  reader.onload = function(){
     try{
-
-      const data =
-        JSON.parse(
-          e.target.result
-        );
-
+      const data = JSON.parse(reader.result);
 
       if(!Array.isArray(data)){
-
-        throw new Error(
-          "Format salah"
-        );
-
+        throw new Error("Format bukan daftar pelanggan.");
       }
 
-
-      openModal(
-
-        "Restore Data",
-
-        "Restore akan mengganti data pelanggan saat ini. Lanjutkan?",
-
-        function(){
-
-          customers=data;
-
-          save();
-
-          render();
-
-          alert(
-            "Data berhasil direstore."
-          );
-
-        }
-
-      );
-
-
-    }catch(error){
-
-      alert(
-        "File backup tidak valid."
-      );
-
+      customers = data.map(normalizeCustomer);
+      save();
+      render();
+      alert("Data berhasil di-restore.");
+    }catch(e){
+      alert("File backup tidak valid.");
+      console.error(e);
     }
 
+    event.target.value = "";
   };
 
-
   reader.readAsText(file);
-
 }
 
+function wipeAll(){
+  openConfirm(
+    "Hapus semua data",
+    "Yakin ingin menghapus SEMUA pelanggan dan riwayat?",
+    function(){
+      customers = [];
+      localStorage.removeItem(STORAGE_KEY);
+      closeModal();
+      render();
+    }
+  );
+}
 
-/* =========================================
-   HAPUS SEMUA DATA
-========================================= */
+$("modal").addEventListener("click", function(e){
+  if(e.target === $("modal")) closeModal();
+});
 
-function wipe(){
-
-  openModal(
-
-    "Hapus Semua Data",
-
-    "Yakin ingin 
+render();
+showTab("customers");
+</script>
+</body>
+  </html>
