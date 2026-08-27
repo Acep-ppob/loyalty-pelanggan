@@ -1,7 +1,7 @@
 {
   "name": "Loyalty Pelanggan",
   "short_name": "Loyalty",
-  "start_url": "./index.html",
+  "start_url": "./indeks.html",
   "display": "standalone",
   "background_color": "#f1f5f9",
   "theme_color": "#111827",
