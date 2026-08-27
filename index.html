@@ -53,15 +53,14 @@ const esc=s=>String(s??"").replace(/[&<>"']/g,x=>({"&":"&amp;","<":"&lt;",">":"&
 function add(){let name=nm.value.trim();if(!name)return alert("Nama wajib diisi.");customers.push({id:Date.now(),name,phone:hp.value.trim(),tx:0,level:0,vip:false,points:0,history:[]});nm.value=hp.value="";save()}
 function tx(id){let c=customers.find(x=>x.id===id);if(c.vip)c.points++;else c.tx++;save()}
 function confirmIt(title,text,fn){
-action=fn;
-mt.textContent=title;
-mx.textContent=text;
-m.classList.remove("hidden");
-mok.onclick=()=>{
-let fn=action;
-closeM();
-if(fn)fn();
-};                   
+  mt.textContent=title;
+  mx.textContent=text;
+  m.classList.remove("hidden");
+
+  mok.onclick=()=>{
+    closeM();
+    if(typeof fn==="function") fn();
+  };
 }
 function claim(id){
 let c=customers.find(x=>x.id===id);
